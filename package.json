@@ -1,0 +1,10 @@
+{
+  "name": "github-profile-chess",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Serverless chess for a GitHub profile README — click-to-play, no New Issue page.",
+  "dependencies": {
+    "chess.js": "^1.0.0"
+  }
+}
