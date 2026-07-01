@@ -20,7 +20,9 @@ const OWNER_REPO = process.env.GH_REPO || 'UsmanShahab18/UsmanShahab18';
 const [OWNER, REPO] = OWNER_REPO.split('/');
 const TOKEN = process.env.GH_TOKEN;
 const BRANCH = process.env.GH_BRANCH || 'main';
-const REDIRECT_URL = process.env.REDIRECT_URL || `https://github.com/${OWNER}`;
+// Redirect back to the chess board's heading anchor so the page lands on the
+// board instead of jumping to the top — makes the reload feel like an in-place update.
+const REDIRECT_URL = process.env.REDIRECT_URL || `https://github.com/${OWNER}#-play-live-chess-with-me`;
 const MIN_MS = parseInt(process.env.MIN_MS || '1200', 10); // min gap between moves
 
 const START = '<!--START:chess-->';
@@ -111,7 +113,7 @@ function renderBlock(game, selected, base, lastMs) {
 
   let rows = '';
   for (let r = 0; r < 8; r++) {
-    let tds = `<td align="center"><sub>${8 - r}</sub></td>`;
+    let tds = '';
     for (let f = 0; f < 8; f++) {
       const cell = board[r][f];
       const sq = FILES[f] + (8 - r);
@@ -132,8 +134,7 @@ function renderBlock(game, selected, base, lastMs) {
     }
     rows += `<tr>${tds}</tr>\n`;
   }
-  const fileHdr = `<tr><td></td>${FILES.map((f) => `<td align="center"><sub>${f}</sub></td>`).join('')}</tr>`;
-  const table = `<table>\n${rows}${fileHdr}\n</table>`;
+  const table = `<table>\n${rows}</table>`;
 
   const state = `<!-- chess:${game.fen()}|${selected}|${game.isGameOver() ? 'over' : 'playing'}|${lastMs} -->`;
   return [
