@@ -123,11 +123,11 @@ function renderBlock(game, selected, base, lastMs) {
       const piece = cell ? GLYPH[cell.color === 'w' ? cell.type.toUpperCase() : cell.type] + '︎' : '';
       let inner;
       if (sq === selected) {
-        inner = `<a href="${base}?sq=${sq}" title="deselect">🟨${piece}</a>`;
+        inner = `<a href="${base}?sq=${sq}" title="selected — click to deselect">🟨</a>`;
       } else if (targets.has(sq)) {
         inner = cell
-          ? `<a href="${base}?sq=${sq}" title="capture">🔴</a>`
-          : `<a href="${base}?sq=${sq}" title="move here">🟢</a>`;
+          ? `<a href="${base}?sq=${sq}" title="capture here">🟥</a>`
+          : `<a href="${base}?sq=${sq}" title="move here">🟩</a>`;
       } else if (cell && cell.color === 'w' && game.turn() === 'w' && !game.isGameOver()) {
         inner = `<a href="${base}?sq=${sq}" title="select ${sq}">${piece}</a>`;
       } else {
@@ -149,6 +149,8 @@ function renderBlock(game, selected, base, lastMs) {
     table,
     '',
     statusText(game),
+    '',
+    '<sub>🟨 selected &nbsp;·&nbsp; 🟩 can move here &nbsp;·&nbsp; 🟥 capture</sub>',
     '',
     `<a href="${base}?reset=1">🔄 New Game</a>`,
     '',
