@@ -117,7 +117,10 @@ function renderBlock(game, selected, base, lastMs) {
     for (let f = 0; f < 8; f++) {
       const cell = board[r][f];
       const sq = FILES[f] + (8 - r);
-      const piece = cell ? GLYPH[cell.color === 'w' ? cell.type.toUpperCase() : cell.type] : '';
+      // Append U+FE0E (text-presentation selector) so GitHub renders classic
+      // monochrome chess glyphs (outline = White, solid = Black) instead of
+      // colored emoji.
+      const piece = cell ? GLYPH[cell.color === 'w' ? cell.type.toUpperCase() : cell.type] + '︎' : '';
       let inner;
       if (sq === selected) {
         inner = `<a href="${base}?sq=${sq}" title="deselect">🟨${piece}</a>`;
